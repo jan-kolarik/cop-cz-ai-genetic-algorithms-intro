@@ -8,16 +8,637 @@
 
 		<link rel="stylesheet" href="dist/reset.css">
 		<link rel="stylesheet" href="dist/reveal.css">
-		<link rel="stylesheet" href="dist/theme/black.css">
+		<link rel="stylesheet" href="dist/theme/white.css">
 
 		<!-- Theme used for syntax highlighted code -->
-		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+		<link rel="stylesheet" href="plugin/highlight/github.css">
+
+		<style>
+			.reveal {
+				--r-background-color: #ededed;
+				--r-heading-color: #333333;
+				--r-main-color: #474747;
+				--r-link-color: #1197c7;
+				--r-link-color-hover: #126a8f;
+				--r-selection-color: #474747;
+				--r-selection-background-color: #70c0dd;
+			}
+	
+			.reveal .footer {
+				position: absolute;
+				bottom: 3%;
+				left: 3%;
+				font-size: 0.6em;
+			}
+	
+			.reveal .mid-footer {
+				position: absolute;
+				bottom: 3%;
+				left: 42%;
+				font-size: 0.6em;
+			}
+	
+			.reveal .redhat-logo {
+				position: absolute;
+				bottom: 87%;
+				left: 3%;
+				width: 6em;
+			}
+	
+			.reveal .opaque {
+				opacity: 0.4;
+				filter: alpha(opacity=60);
+			}
+	
+			.reveal .opaque:hover {
+				opacity: 1;
+				filter: alpha(opacity=100);
+			}
+	
+			.reveal .zindex-1 {
+				z-index: 1;
+			}
+	
+			.reveal .crop-graph {
+				margin-top: -8%;
+			}
+	
+			.reveal table.smaller {
+				font-size: 0.5em;
+			}
+	
+			.reveal .slides section .fragment.none-space.current-fragment {
+				height: auto;
+			}
+	
+			.reveal .slides section .fragment.visible.none-space {
+				height: 0;
+			}
+	
+			.reveal .slides section .fragment.none-space {
+				height: 0;
+			}
+	
+			.reveal .slides section .fragment.fade-in-then-out.none-space.current-fragment {
+				height: auto;
+			}
+	
+			.reveal .slides .fragment.fade-children {
+				opacity: 1;
+				visibility: inherit;
+			}
+	
+			.reveal .slides .fragment.fade-children.visible > li {
+				opacity: 0.3;
+				visibility: inherit;
+			}
+	
+			.reveal .slides .fragment.highlight-black {
+				opacity: 1;
+				visibility: inherit;
+			}
+	
+			.reveal .slides .fragment.highlight-black.current-fragment {
+				opacity: 1 !important;
+			}
+	
+			.reveal .slides section ul {
+				font-size: 80%;
+			}
+
+			/* custom objects styles */
+
+			.grid {
+				display: grid;
+				place-items: center;
+				max-width: 100%;
+				border: 5px solid rgb(71, 71, 71);
+    			border-radius: 15px;
+    			padding: 15px; 
+			}
+
+			.grid img {
+				width: 100%;
+				height: auto;
+				margin: 5px auto;
+			}
+
+			.grid .tall-image {
+				grid-row: span 2;
+			}
+
+			.inspired-container {
+				display: flex; 
+				justify-content: center; 
+				align-items: center;
+			}
+
+			.population-grid {
+				grid-template-columns: repeat(4, 1fr);
+				grid-template-rows: repeat(3, auto);
+				width: 300px;
+			}
+
+			.representation-grid {
+				grid-template-columns: repeat(2, 1fr);
+				grid-template-rows: repeat(2, auto);
+				width: 300px;
+			}
+
+			.fitness-grid {
+				grid-template-columns: repeat(6, 1fr);
+				grid-template-rows: repeat(2, auto);
+				width: 900px;
+			}
+
+			.selection-grid {
+				display: grid;
+				place-items: center;
+				max-width: 100%;
+    			padding: 15px;
+				grid-template-columns: repeat(2, 1fr);
+				grid-template-rows: repeat(2, auto);
+				width: 100px;
+				margin-right: -130px;
+			}
+
+			.evolution-grid {
+				display: grid;
+				place-items: center;
+				max-width: 100%;
+    			padding: 15px;
+				grid-template-columns: repeat(4, 1fr);
+				grid-template-rows: repeat(2, auto);
+				width: 200px;
+				margin-right: -230px;
+			}
+
+			.mutation-grid {
+				grid-template-columns: repeat(4, auto);
+				grid-template-rows: repeat(3, auto);
+				width: 600px;
+			}
+
+			.mutation-grid-after {
+				grid-template-columns: repeat(4, auto);
+				grid-template-rows: repeat(5, auto);
+				width: 600px;
+			}
+
+			.reproduction-grid {
+				grid-template-columns: repeat(7, auto);
+				grid-template-rows: repeat(2, auto);
+				width: 600px;
+			}
+
+			.reproduction-grid-after {
+				grid-template-columns: repeat(7, auto);
+				grid-template-rows: repeat(5, auto);
+				width: 600px;
+			}
+
+			.reproduction-grid p {
+				margin: 0;
+			}
+
+			.reproduction-grid-after p {
+				margin: 0;
+			}
+
+			.unselected {
+				opacity: 0.3;
+			}
+
+			.dna-code {
+				font-size: 14px;
+				margin: 0 !important;
+			}
+
+			.dna-highlight {
+				color: red;
+				font-weight: bold;
+			}
+
+			.why-list {
+				list-style-type: none !important;
+			}
+		</style>
 	</head>
 	<body>
 		<div class="reveal">
+			<div class='footer opaque zindex-1'>
+				<p>Jan Kolárik</p>
+			</div>
+			<div class='redhat-logo opaque zindex-1'>
+				<img class="logo" src="img/redhat.svg" />
+			</div>
 			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
+				<section data-auto-animate>
+					<h3>Introduction to Genetic Algorithms</h3>
+					<p><code>#cop-cz-ai</code></p>
+				</section>
+
+				<section data-auto-animate>
+					<h3>Motivation</h3>
+					<p class="fragment fade-left">Let's say we have:</p>
+					<ul>
+						<li class="fragment fade-left">Complex problem</li>
+						<li class="fragment fade-left">Large search space</li>
+						<li class="fragment fade-left">Non-deterministic or exponential algorithm</li>
+						<li class="fragment fade-left">Problem with building the solution from scratch</li>
+						<li class="fragment fade-left">Noisy or discontinuous problem</li>
+					</ul>
+				</section>
+
+				<section data-auto-animate>
+					<h3>Motivation</h3>
+					<p>We just don't know what else to try!</p>
+				</section>
+
+				<section data-auto-animate>
+					<h3>Categorization</h3>
+					<span class="fragment fade-left">
+						<p>Part of Evolutionary Algorithms</p>
+						<img src="img/darwin.png" style="width: 500px;"/>
+					</span>
+				</section>
+
+				<section data-auto-animate>
+					<h3>Categorization</h3>
+					<p>Metaheuristic optimization algorithm</p>
+					<img src="img/rastrigin.png" style="width: 800px;"/>
+				</section>
+
+				<section data-auto-animate>
+					<h3>Categorization</h3>
+					<p>Usage in Machine Learning</p>
+					<img src="img/neuroevolution.png" style="width: 400px;"/>
+				</section>
+
+				<section data-auto-animate>
+					<h3>Categorization</h3>
+					<p>Usage in AI</p>
+					<img src="img/decisionmaking.png" style="width: 400px;"/>
+				</section>
+
+				<section data-auto-animate>
+					<h3>Inspired By The Nature</h3>
+					<!-- Population / Solutions -->
+					<!-- Chromosomes / Representation -->
+					<!-- Adaptation, Survival / Fitness -->
+					<!-- Parents / Selection -->
+					<!-- Reproduction / Crossover -->
+					<!-- Mutations / Random Changes -->
+					<!-- Evolution / Generation of solutions -->
+				</section>
+
+				<section data-auto-animate>
+					<h3>Inspired By The Nature</h3>
+					<p>Population</p>
+					<div class="inspired-container">
+						<div class="population-grid grid">
+							<img data-id="person01" data-src="img/person.svg">
+							<img data-id="person02" data-src="img/person.svg">
+							<img data-id="person03" data-src="img/person.svg">
+							<img data-id="person04" data-src="img/person.svg">
+							<img data-id="person05" data-src="img/person.svg">
+							<img data-id="person06" data-src="img/person.svg">
+							<img data-id="person07" data-src="img/person.svg">
+							<img data-id="person08" data-src="img/person.svg">
+							<img data-id="person09" data-src="img/person.svg">
+							<img data-id="person10" data-src="img/person.svg">
+							<img data-id="person11" data-src="img/person.svg">
+							<img data-id="person12" data-src="img/person.svg">
+						</div>
+					</div>
+				</section>
+
+				<section data-auto-animate>
+					<h3>Inspired By The Nature</h3>
+					<p>Representation</p>
+					<div class="inspired-container">
+						<div class="representation-grid grid">
+							<img data-id="person01" class="tall-image" data-src="img/person.svg">
+							<img data-id="dna01" data-src="img/dna.svg">
+							<img data-id="fitness01" data-src="img/fitness.svg" style="width: 60%; visibility: hidden;">
+						</div>
+					</div>
+				</section>
+
+				<section data-auto-animate>
+					<h3>Inspired By The Nature</h3>
+					<p>Fitness</p>
+					<div class="inspired-container">
+						<div class="representation-grid grid">
+							<img data-id="person01" class="tall-image" data-src="img/person.svg">
+							<img data-id="dna01_diff" data-src="img/dna1.svg">
+							<img data-id="fitness01_diff" data-src="img/fitness1.svg" style="width: 60%;">
+						</div>
+					</div>
+				</section>
+
+				<section data-auto-animate>
+					<h3>Inspired By The Nature</h3>
+					<p>Fitness</p>
+					<div class="inspired-container">
+						<div class="fitness-grid grid">
+							<img data-id="person01" class="tall-image" data-src="img/person.svg">
+							<img data-id="dna01" data-src="img/dna1.svg">
+							<img data-id="person02" class="tall-image" data-src="img/person.svg">
+							<img data-id="dna02" data-src="img/dna2.svg">
+							<img data-id="person03" class="tall-image" data-src="img/person.svg">
+							<img data-id="dna03" data-src="img/dna3.svg">
+							<img data-id="fitness01" data-src="img/fitness1.svg" style="width: 60%;">
+							<img data-id="fitness02" data-src="img/fitness2.svg" style="width: 60%;">
+							<img data-id="fitness03" data-src="img/fitness3.svg" style="width: 60%;">
+						</div>
+					</div>
+				</section>
+
+				<section data-auto-animate>
+					<h3>Inspired By The Nature</h3>
+					<p>Selection</p>
+					<div class="inspired-container">
+						<div class="population-grid grid">
+							<img data-id="person01" data-src="img/person.svg">
+							<img data-id="person02" data-src="img/person.svg">
+							<img data-id="person03" data-src="img/person.svg">
+							<img data-id="person04" data-src="img/person.svg">
+							<img data-id="person05" data-src="img/person.svg">
+							<img data-id="person06" data-src="img/person.svg">
+							<img data-id="person07" data-src="img/person.svg">
+							<img data-id="person08" data-src="img/person.svg">
+							<img data-id="person09" data-src="img/person.svg">
+							<img data-id="person10" data-src="img/person.svg">
+							<img data-id="person11" data-src="img/person.svg">
+							<img data-id="person12" data-src="img/person.svg">
+						</div>
+					</div>
+				</section>
+
+				<section data-auto-animate>
+					<h3>Inspired By The Nature</h3>
+					<p>Selection</p>
+					<div class="inspired-container" style="align-items: flex-start;">
+						<div class="population-grid grid">
+							<img data-id="person01" class="unselected" data-src="img/person.svg">
+							<img data-id="person02" class="unselected" data-src="img/person.svg">
+							<img data-id="person03" class="unselected" data-src="img/person.svg">
+							<img data-id="person04" class="unselected" data-src="img/person.svg">
+							<img data-id="person05" class="unselected" data-src="img/person.svg">
+							<img data-id="person06" data-src="img/person.svg">
+							<img data-id="person07" data-src="img/person.svg">
+							<img data-id="person08" class="unselected" data-src="img/person.svg">
+							<img data-id="person09" class="unselected" data-src="img/person.svg">
+							<img data-id="person10" data-src="img/person.svg">
+							<img data-id="person11" data-src="img/person.svg">
+							<img data-id="person12" class="unselected" data-src="img/person.svg">
+						</div>
+						<div class="selection-grid">
+							<img data-id="person_unselected" class="unselected" data-src="img/person.svg">
+							<img data-id="fitness01" data-src="img/fitness1.svg" style="width: 60%;">
+							<img data-id="person_selected" data-src="img/person.svg">
+							<img data-id="fitness03" data-src="img/fitness3.svg" style="width: 60%;">
+						</div>
+					</div>
+				</section>
+
+				<section data-auto-animate>
+					<h3>Inspired By The Nature</h3>
+					<p>Reproduction</p>
+					<div class="inspired-container">
+						<div class="reproduction-grid grid">
+							<img data-id="person06" data-src="img/person.svg">
+							<p>⇋</p>
+							<img data-id="person07" data-src="img/person.svg">
+							<img data-id="person_invisible" data-src="img/person.svg" style="visibility: hidden;">
+							<img data-id="person10" data-src="img/person.svg">
+							<p>⇋</p>
+							<img data-id="person11" data-src="img/person.svg">
+							<img data-id="dna06" data-src="img/dna_blue.svg" style="width: 60%;">
+							<p></p>
+							<img data-id="dna07" data-src="img/dna_orange.svg" style="width: 60%;">
+							<img data-id="dna_invisible" data-src="img/dna.svg" style="width: 60%; visibility: hidden;">
+							<img data-id="dna10" data-src="img/dna_green.svg" style="width: 60%;">
+							<p></p>
+							<img data-id="dna11" data-src="img/dna_purple.svg" style="width: 60%;">
+						</div>
+					</div>
+				</section>
+
+				<section data-auto-animate>
+					<h3>Inspired By The Nature</h3>
+					<p>Reproduction</p>
+					<div class="inspired-container">
+						<div class="reproduction-grid-after grid">
+							<img data-id="person06" data-src="img/person.svg">
+							<p>⇋</p>
+							<img data-id="person07" data-src="img/person.svg">
+							<img data-id="person_invisible" data-src="img/person.svg" style="visibility: hidden;">
+							<img data-id="person10" data-src="img/person.svg">
+							<p>⇋</p>
+							<img data-id="person11" data-src="img/person.svg">
+							<img data-id="dna06" data-src="img/dna_blue.svg" style="width: 60%;">
+							<p></p>
+							<img data-id="dna07" data-src="img/dna_orange.svg" style="width: 60%;">
+							<img data-id="dna_invisible" data-src="img/dna.svg" style="width: 60%; visibility: hidden;">
+							<img data-id="dna10" data-src="img/dna_green.svg" style="width: 60%;">
+							<p></p>
+							<img data-id="dna11" data-src="img/dna_purple.svg" style="width: 60%;">
+							<p></p>
+							<p>↙↘</p>
+							<p></p>
+							<p></p>
+							<p></p>
+							<p>↙↘</p>
+							<p></p>
+							<img data-id="person_new_1" data-src="img/person.svg">
+							<p></p>
+							<img data-id="person_new_2" data-src="img/person.svg">
+							<img data-id="person_invisible" data-src="img/person.svg" style="visibility: hidden;">
+							<img data-id="person_new_3" data-src="img/person.svg">
+							<p></p>
+							<img data-id="person_new_4" data-src="img/person.svg">
+							<img data-id="dna_new_1" data-src="img/dna_blue_orange.svg" style="width: 60%;">
+							<p></p>
+							<img data-id="dna_new_2" data-src="img/dna_orange_blue.svg" style="width: 60%;">
+							<img data-id="dna_invisible" data-src="img/dna.svg" style="width: 60%; visibility: hidden;">
+							<img data-id="dna_new_3" data-src="img/dna_green_purple.svg" style="width: 60%;">
+							<p></p>
+							<img data-id="dna_new_4" data-src="img/dna_purple_green.svg" style="width: 60%;">
+						</div>
+					</div>
+				</section>
+
+				<section data-auto-animate>
+					<h3>Inspired By The Nature</h3>
+					<p>Mutation</p>
+					<div class="inspired-container">
+						<div class="mutation-grid grid">
+							<img data-id="person_new_1" data-src="img/person.svg">
+							<img data-id="person_new_2" data-src="img/person.svg">
+							<img data-id="person_new_3" data-src="img/person.svg">
+							<img data-id="person_new_4" data-src="img/person.svg">
+							<img data-id="dna_new_1" data-src="img/dna_blue_orange.svg" style="width: 60%;">
+							<img data-id="dna_new_2" data-src="img/dna_orange_blue.svg" style="width: 60%;">
+							<img data-id="dna_new_3" data-src="img/dna_green_purple.svg" style="width: 60%;">
+							<img data-id="dna_new_4" data-src="img/dna_purple_green.svg" style="width: 60%;">
+							<p class="dna-code">0010101101101110</p>
+							<p class="dna-code">1111100100100110</p>
+							<p class="dna-code">0110101101111000</p>
+							<p class="dna-code">1010100101110000</p>
+						</div>
+					</div>
+				</section>
+
+				<section data-auto-animate>
+					<h3>Inspired By The Nature</h3>
+					<p>Mutation</p>
+					<div class="inspired-container">
+						<div class="mutation-grid grid">
+							<img data-id="person_new_1" data-src="img/person.svg">
+							<img data-id="person_new_2" data-src="img/person.svg">
+							<img data-id="person_new_3" data-src="img/person.svg">
+							<img data-id="person_new_4" data-src="img/person.svg">
+							<img data-id="dna_new_1" data-src="img/dna_blue_orange.svg" style="width: 60%;">
+							<img data-id="dna_new_2" data-src="img/dna_orange_blue.svg" style="width: 60%;">
+							<img data-id="dna_new_3" data-src="img/dna_green_purple.svg" style="width: 60%;">
+							<img data-id="dna_new_4" data-src="img/dna_purple_green.svg" style="width: 60%;">
+							<p class="dna-code">0010<span class="dna-highlight">1</span>01101101110</p>
+							<p class="dna-code">111110<span class="dna-highlight">0</span>100100110</p>
+							<p class="dna-code">01101011011<span class="dna-highlight">1</span>1000</p>
+							<p class="dna-code">101010010111000<span class="dna-highlight">0</span></p>
+							<p class="dna-code">⇓</p>
+							<p class="dna-code">⇓</p>
+							<p class="dna-code">⇓</p>
+							<p class="dna-code">⇓</p>
+							<p class="dna-code">0010<span class="dna-highlight">0</span>01101101110</p>
+							<p class="dna-code">111110<span class="dna-highlight">1</span>100100110</p>
+							<p class="dna-code">01101011011<span class="dna-highlight">0</span>1000</p>
+							<p class="dna-code">101010010111000<span class="dna-highlight">1</span></p>
+						</div>
+					</div>
+				</section>
+
+				<section data-auto-animate>
+					<h3>Inspired By The Nature</h3>
+					<p>Generations</p>
+					<div class="inspired-container" style="align-items: flex-start;">
+						<div class="population-grid grid">
+							<img data-id="person01" class="unselected" data-src="img/person.svg">
+							<img data-id="person02" class="unselected" data-src="img/person.svg">
+							<img data-id="person03" class="unselected" data-src="img/person.svg">
+							<img data-id="person04" class="unselected" data-src="img/person.svg">
+							<img data-id="person05" class="unselected" data-src="img/person.svg">
+							<img data-id="person06" data-src="img/person.svg">
+							<img data-id="person07" data-src="img/person.svg">
+							<img data-id="person08" class="unselected" data-src="img/person.svg">
+							<img data-id="person09" class="unselected" data-src="img/person.svg">
+							<img data-id="person10" data-src="img/person.svg">
+							<img data-id="person11" data-src="img/person.svg">
+							<img data-id="person12" class="unselected" data-src="img/person.svg">
+						</div>
+						<div class="evolution-grid grid" style="border: none;">
+							<img data-id="person_new_1" data-src="img/person.svg">
+							<img data-id="person_new_2" data-src="img/person.svg">
+							<img data-id="person_new_3" data-src="img/person.svg">
+							<img data-id="person_new_4" data-src="img/person.svg">
+							<img data-id="dna_new_1" data-src="img/dna_blue_orange.svg" style="width: 60%;">
+							<img data-id="dna_new_2" data-src="img/dna_orange_blue.svg" style="width: 60%;">
+							<img data-id="dna_new_3" data-src="img/dna_green_purple.svg" style="width: 60%;">
+							<img data-id="dna_new_4" data-src="img/dna_purple_green.svg" style="width: 60%;">
+						</div>
+					</div>
+				</section>
+
+				<section data-auto-animate>
+					<h3>Inspired By The Nature</h3>
+					<p>Generations</p>
+					<div class="inspired-container" style="align-items: flex-start;">
+						<div class="population-grid grid">
+							<img data-id="person01" data-src="img/person.svg">
+							<img data-id="person02" data-src="img/person.svg">
+							<img data-id="person03" data-src="img/person.svg">
+							<img data-id="person04" data-src="img/person.svg">
+							<img data-id="person05" data-src="img/person.svg">
+							<img data-id="person_new_1" data-src="img/person.svg">
+							<img data-id="person_new_2" data-src="img/person.svg">
+							<img data-id="person08" data-src="img/person.svg">
+							<img data-id="person09" data-src="img/person.svg">
+							<img data-id="person_new_3" data-src="img/person.svg">
+							<img data-id="person_new_4" data-src="img/person.svg">
+							<img data-id="person12" data-src="img/person.svg">
+						</div>
+						<div class="evolution-grid grid" style="border: none;">
+							<img data-id="person06" data-src="img/person.svg" style="opacity: 0;">
+							<img data-id="person07" data-src="img/person.svg" style="opacity: 0;">
+							<img data-id="person10" data-src="img/person.svg" style="opacity: 0;">
+							<img data-id="person11" data-src="img/person.svg" style="opacity: 0;">
+							<img data-id="dna_new_1" data-src="img/dna_blue_orange.svg" style="visibility: hidden;">
+							<img data-id="dna_new_2" data-src="img/dna_orange_blue.svg" style="visibility: hidden;">
+							<img data-id="dna_new_3" data-src="img/dna_green_purple.svg" style="visibility: hidden;">
+							<img data-id="dna_new_4" data-src="img/dna_purple_green.svg" style="visibility: hidden;">
+						</div>
+					</div>
+				</section>
+
+				<section data-auto-animate>
+					<h3>Why does it work?</h3>
+					<ul class="why-list">
+						<li class="fragment fade-left">🌱 &nbsp; It mimics the natural evolution process</li>
+						<li class="fragment fade-left">💪 &nbsp; Survival of the fittest</li>
+						<li class="fragment fade-left">💡 &nbsp; Mixing good ideas</li>
+						<li class="fragment fade-left">🧭 &nbsp; Exploring new possibilities</li>
+						<li class="fragment fade-left">🔁 &nbsp; Iterative improvement</li>
+					</ul>
+				</section>
+
+				<section data-auto-animate>
+					<h3>Why does it work?</h3>
+					<p>Best solutions survive and reproduce!</p>
+				</section>
+
+				<section data-auto-animate>
+					<h3>Simple GA code</h3>
+					<pre style="font-size: 14px; width: 60%;">
+						<code class="hljs language-python" data-trim data-line-numbers="|1|2|5|9-15|17-19|21|22|">
+							population = generate_random_population(population_size)
+							fitness_scores = evaluate_population(population)
+
+							for generation in range(num_generations):
+								parents = select_parents(population, fitness_scores)
+
+								offspring = []
+								for i in range(0, len(parents), 2):
+									parent1 = parents[i]
+									parent2 = parents[i + 1]
+									if random() < crossover_rate:
+										child1, child2 = crossover(parent1, parent2)
+									else:
+										child1, child2 = parent1, parent2
+									offspring.extend([child1, child2])
+
+								for individual in offspring:
+									if random() < mutation_rate:
+										mutate(individual)
+
+								fitness_scores = evaluate_population(offspring)
+								population = offspring
+						</code>
+					</pre>
+				</section>
+
+				<section data-auto-animate>
+					<h3>Simple GA demo</h3>
+				</section>
+
+				<section data-auto-animate>
+					<h3>Applications</h3>
+				</section>
+
+				<section data-auto-animate>
+					<h3>Temperature Stage Heating Model</h3>
+				</section>
 			</div>
 		</div>
 
@@ -31,7 +652,6 @@
 			// - https://revealjs.com/config/
 			Reveal.initialize({
 				hash: true,
-
 				// Learn about plugins: https://revealjs.com/plugins/
 				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
 			});
