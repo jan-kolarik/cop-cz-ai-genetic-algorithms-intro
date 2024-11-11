@@ -1,0 +1,1 @@
+ttyd -w /home/kolage/Projects/ga-demo -W -p 1234 -t fontSize=14 -t 'theme={"background": "white", "foreground": "black"}' bash

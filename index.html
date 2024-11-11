@@ -222,6 +222,21 @@
 			.why-list {
 				list-style-type: none !important;
 			}
+
+			#cli-wrapper {
+				max-width: 60%; 
+				width: 60%; 
+				max-height: 100%; 
+				height: 100%; 
+				overflow: hidden;
+			}
+
+			#cli {
+				max-width: 103%; 
+				width: 103%; 
+				max-height: 100%; 
+				height: 100%;
+			}
 		</style>
 	</head>
 	<body>
@@ -599,37 +614,38 @@
 				</section>
 
 				<section data-auto-animate>
-					<h3>Simple GA code</h3>
-					<pre style="font-size: 14px; width: 60%;">
-						<code class="hljs language-python" data-trim data-line-numbers="|1|2|5|9-15|17-19|21|22|">
-							population = generate_random_population(population_size)
-							fitness_scores = evaluate_population(population)
-
-							for generation in range(num_generations):
-								parents = select_parents(population, fitness_scores)
-
-								offspring = []
-								for i in range(0, len(parents), 2):
-									parent1 = parents[i]
-									parent2 = parents[i + 1]
-									if random() < crossover_rate:
-										child1, child2 = crossover(parent1, parent2)
-									else:
-										child1, child2 = parent1, parent2
-									offspring.extend([child1, child2])
-
-								for individual in offspring:
-									if random() < mutation_rate:
-										mutate(individual)
-
-								fitness_scores = evaluate_population(offspring)
-								population = offspring
-						</code>
-					</pre>
-				</section>
-
-				<section data-auto-animate>
 					<h3>Simple GA demo</h3>
+					<div class="r-stack">
+						<pre style="font-size: 14px; width: 60%;">
+							<code class="hljs language-python" data-trim data-line-numbers="|1|2|5|9-15|17-19|21|22|">
+								population = generate_random_population(population_size)
+								fitness_scores = evaluate_population(population)
+
+								for generation in range(num_generations):
+									parents = select_parents(population, fitness_scores)
+
+									offspring = []
+									for i in range(0, len(parents), 2):
+										parent1 = parents[i]
+										parent2 = parents[i + 1]
+										if random() < crossover_rate:
+											child1, child2 = crossover(parent1, parent2)
+										else:
+											child1, child2 = parent1, parent2
+										offspring.extend([child1, child2])
+
+									for individual in offspring:
+										if random() < mutation_rate:
+											mutate(individual)
+
+									fitness_scores = evaluate_population(offspring)
+									population = offspring
+							</code>
+						</pre>
+						<div id="cli-wrapper" class="fragment fade-up">
+							<iframe id="cli" src="http://localhost:1234/"></iframe>
+						</div>
+					</div>
 				</section>
 
 				<section data-auto-animate>
