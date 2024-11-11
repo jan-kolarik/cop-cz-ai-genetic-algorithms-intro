@@ -108,6 +108,10 @@
 
 			/* custom objects styles */
 
+			.footer-title {
+				display: none;
+			}
+
 			.grid {
 				display: grid;
 				place-items: center;
@@ -242,14 +246,15 @@
 	<body>
 		<div class="reveal">
 			<div class='footer opaque zindex-1'>
-				<p>Jan Kolárik</p>
+				<p style="display: inline;">Jan Kolárik</p>
+				<p class="footer-title">&nbsp;·&nbsp; Introduction To Genetic Algorithms</p>
 			</div>
 			<div class='redhat-logo opaque zindex-1'>
 				<img class="logo" src="img/redhat.svg" />
 			</div>
 			<div class="slides">
 				<section data-auto-animate>
-					<h3>Introduction to Genetic Algorithms</h3>
+					<h3>Introduction To Genetic Algorithms</h3>
 					<p><code>#cop-cz-ai</code></p>
 				</section>
 
@@ -598,7 +603,7 @@
 				</section>
 
 				<section data-auto-animate>
-					<h3>Why does it work?</h3>
+					<h3>Why Does It Work?</h3>
 					<ul class="why-list">
 						<li class="fragment fade-left">🌱 &nbsp; It mimics the natural evolution process</li>
 						<li class="fragment fade-left">💪 &nbsp; Survival of the fittest</li>
@@ -609,12 +614,12 @@
 				</section>
 
 				<section data-auto-animate>
-					<h3>Why does it work?</h3>
+					<h3>Why Does It Work?</h3>
 					<p>Best solutions survive and reproduce!</p>
 				</section>
 
 				<section data-auto-animate>
-					<h3>Simple GA demo</h3>
+					<h3>Simple Demo</h3>
 					<div class="r-stack">
 						<pre style="font-size: 14px; width: 60%;">
 							<code class="hljs language-python" data-trim data-line-numbers="|1|2|5|9-15|17-19|21|22|">
@@ -649,11 +654,25 @@
 				</section>
 
 				<section data-auto-animate>
-					<h3>Applications</h3>
+					<h3>Some Known Pitfalls</h3>
+					<ul>
+						<li class="fragment fade-left">Computational Expense</li>
+						<li class="fragment fade-left">Parameter Tuning Challenges</li>
+						<li class="fragment fade-left">Premature Convergence Risk</li>
+					</ul>
 				</section>
 
 				<section data-auto-animate>
-					<h3>Temperature Stage Heating Model</h3>
+					<h3>Real Application Example</h3>
+					<p>Temperature Stage Heating Model</p>
+					<div style="display: flex; align-items: center; justify-content: center;">
+						<img src="img/peltier.png" style="width: 400px; margin-right: 50px;"/>
+						<img src="img/peltier-samples.jpg" style="width: 350px;"/>
+					</div>
+				</section>
+
+				<section data-auto-animate>
+					<h1>💬</h1>
 				</section>
 			</div>
 		</div>
@@ -670,6 +689,14 @@
 				hash: true,
 				// Learn about plugins: https://revealjs.com/plugins/
 				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			});
+
+			Reveal.on('slidechanged', (event) => {
+				if (event.indexh == 0) {
+					document.querySelector('.footer-title').style.display = 'none';
+				} else {
+					document.querySelector('.footer-title').style.display = 'inline';
+				}
 			});
 		</script>
 	</body>
